@@ -6,8 +6,8 @@
     <c:when test="${empty param.mail}">
         <h1>Sign Up</h1><hr/>
         <form method="POST" action="login.jsp">
-            Email<br/><input type="email" name="mail" placeholder="Email address" required="t"/><br/>
-            Password<br/><input type="password" name="pwd" placeholder="Password" minlength="8" required="t"/><br/>
+            Email<br/><input type="email" name="mail" placeholder="Email address" maxlength="255" required="t"/><br/>
+            Password<br/><input type="password" name="pwd" placeholder="Password" minlength="8" maxlength="255" required="t"/><br/>
             <input type="submit" value="Log in"/>
         </form>
     </c:when>

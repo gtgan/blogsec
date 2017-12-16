@@ -9,11 +9,11 @@
     <c:when test="${empty param.mail || param.pwd != param.re}">
         <h1>Sign Up</h1><hr/>
         <form method="POST" action="signup.jsp">
-            Email*<br/><input type="email" name="mail" placeholder="Email address" required="t"/><br/>
-            Password*<br/><input type="password" name="pwd" placeholder="At least 8 characters" minlength="8" required="t"/><br/>
-            Retype password*<br/><input type="password" name="re" placeholder="Confirm password" minlength="8" required="t"/><br/>
-            First name<br/><input type="text" name="fname" placeholder="First name (optional)"/><br/>
-            Last name<br/><input type="text" name="lname" placeholder="Last name (optional)"/><br/>
+            Email*<br/><input type="email" name="mail" placeholder="Email address" maxlength="255" required="t"/><br/>
+            Password*<br/><input type="password" name="pwd" placeholder="At least 8 characters" minlength="8" maxlength="255" required="t"/><br/>
+            Retype password*<br/><input type="password" name="re" placeholder="Confirm password" minlength="8" maxlength="255" required="t"/><br/>
+            First name<br/><input type="text" name="fname" placeholder="First name (optional)" maxlength="255"/><br/>
+            Last name<br/><input type="text" name="lname" placeholder="Last name (optional)" maxlength="255"/><br/>
             <input type="submit" value="Sign up"/>
         </form>
         <c:if test="${param.pwd != param.re}">
