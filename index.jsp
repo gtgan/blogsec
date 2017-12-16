@@ -1,6 +1,7 @@
 <%@ include file="top.jsp" %>
         <title>BlogSec</title>
     </head>
+<c:if test="${param.out != null}"><% session.removeAttribute("loginUser"); %></c:if>
 <%@ include file="nav.jsp" %>
         <h1>Users</h1><hr/>
         <sql:query dataSource="jdbc/BSDB" var="result">
