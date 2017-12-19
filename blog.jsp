@@ -57,11 +57,12 @@
             <tbody>
                 <c:forEach var="r" items="${result.rows}"><tr style="height:18px;">
                     <td><c:if test="${privilege eq 'admin' || r.email eq sessionScope['loginUser']}">
-                        <button id="s${r.post_id}" onclick="document.getElementById('del${r.post_id}').style.display='block'; document.getElementById('s${r.post_id}').style.display='none';">Delete</button>
+                        <button type="button" id="s${r.post_id}" onclick="document.getElementById('del${r.post_id}').style.display='block'; document.getElementById('s${r.post_id}').style.display='none';">Delete</button>
                         <form id="del${r.post_id}" name="delete${r.post_id}" method="post" style="display:none;">
+                            Enter your password to confirm:<br/>
                             <input id="confirm${r.post_id}" name="confirm" type="password" placeholder="Enter your password to confirm"/><br/>
                             <input type="submit" value="Delete"/><input type="hidden" name="del_id" value="${r.post_id}"/>
-                            <button onclick="document.getElementById('del${r.post_id}').style.display='none'; document.getElementById('s${r.post_id}').style.display='block';">Cancel</button>
+                            <button type="button" onclick="document.getElementById('del${r.post_id}').style.display='none'; document.getElementById('s${r.post_id}').style.display='block';">Cancel</button>
                         </form>
                     </c:if></td>
                     <td><a href="blog.jsp?id=<c:out value='${r.post_id}'/>"><b><c:out value="${r.title}"/></b></a></td>
