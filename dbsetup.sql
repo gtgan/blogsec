@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS Posts (
     email       varchar(255) NOT NULL,
     content     text,
     title       varchar(255) NOT NULL,
-    modified    datetime DEFAULT NOW(),
+    modified    timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (email) REFERENCES Users(email)
 );
 CREATE TABLE IF NOT EXISTS Replies (
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS Replies (
     email       varchar(255) NOT NULL,
     post_id     bigint NOT NULL,
     content     text,
-    modified    datetime DEFAULT NOW(),
+    modified    timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (email) REFERENCES Users(email),
     FOREIGN KEY (post_id) REFERENCES Posts(post_id)
 );
@@ -38,5 +38,6 @@ CREATE TABLE IF NOT EXISTS Vulnerable (
     id          bigint NOT NULL AUTO_INCREMENT PRIMARY KEY,
     value       text,
     email       varchar(255) NOT NULL,
+    modified    timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (email) REFERENCES Users(email)
 );
