@@ -28,7 +28,7 @@
         <c:when test="${empty param.id}">
             Blog Posts
             <sql:query dataSource="jdbc/blogsec" var="result">
-                SELECT post_id, title, email, first_name, last_name, modified FROM Posts NATURAL JOIN Users ORDER BY created DESC;
+                SELECT post_id, title, email, first_name, last_name, modified FROM Posts NATURAL JOIN Users ORDER BY post_id DESC;
             </sql:query>
         </c:when>
         <c:otherwise>
