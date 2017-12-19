@@ -66,7 +66,9 @@
                         </form>
                     </c:if></td>
                     <td><a href="blog.jsp?id=<c:out value='${r.post_id}'/>"><b><c:out value="${r.title}"/></b></a></td>
-                    <td><c:out value="${r.first_name} ${r.last_name}"/></td>
+                    <c:set var="uname" value="${r.first_name} ${r.last_name}"/>
+                    <c:if test="${uname eq ' '}"><c:set var="uname" value="${r.email}"/></c:if>
+                    <td><a href="users.jsp?mail=${r.email}"><c:out value="${r.first_name} ${r.last_name}"/></a></td>
                     <td><c:out value="${r.modified}"/></td>
                 </tr></c:forEach>
             </tbody>
