@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+
+
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="description" content="Information security blog"/>
+        <meta name="keywords" content="security,protocol,crypto"/>
+        <meta name="author" content="Gregory Gan"/>
+
+        <title>BlogSec | Hack This Page</title>
+    </head>
+    <body>
+        <nav>
+            <a href="index.jsp"><h3 style="display:inline;">BlogSec</h3></a>
+            <span style="float:right;">
+                <a href="blog.jsp">Blog Posts</a> |
+
+                <a href="signup.jsp">Sign Up</a> |
+                <a href="login.jsp">Log In</a>
+
+            </span>
+        </nav>
+
+
+
+
+
+        <h1>Hack This Page</h1><hr/>
+
+
+
+        <p><button onclick="alert('Curiosity and gullibility are often indistinguishable.');" style="width:300px;"><h1>You won a prize!</h1></button></p>
+        <p style="text-align:right;"><i>- Trudy , 2017-12-15 22:44:12.0</i></p>
+
+        <p><h1>Markup is enabled here.</h1></p>
+        <p style="text-align:right;"><i>- Gregory Gan, 2017-12-15 22:44:12.0</i></p>
+
+        <p>There's no input validation.</p>
+        <p style="text-align:right;"><i>- Gregory Gan, 2017-12-15 22:44:12.0</i></p>
+
+        <p>There's no input validation.</p>
+        <p style="text-align:right;"><i>- Gregory Gan, 2017-12-15 22:44:12.0</i></p>
+
+        <p>The form uses GET.</p>
+        <p style="text-align:right;"><i>- Gregory Gan, 2017-12-15 22:44:12.0</i></p>
+
+        <p></p>
+        <p style="text-align:right;"><i>- Gregory Gan, 2017-12-15 22:44:12.0</i></p>
+
+        <p>Try SQL injection: type something like " '); &lt;your SQL code&gt; -- comment out the rest "</p>
+        <p style="text-align:right;"><i>- Gregory Gan, 2017-12-15 22:44:12.0</i></p>
+
+        <p>You can also write JavaScript, like "&lt;script&gt;...&lt;/script&gt;"</p>
+        <p style="text-align:right;"><i>- Gregory Gan, 2017-12-15 22:44:12.0</i></p>
+
+        <p><button onClick="document.cookie='cookieValue=someCookie';">Add a cookie</button>
+<button onclick="alert(escape(document.cookie));">Show cookies</button><br/>
+Click on the "Add a cookie" button to add a cookie for this site. Click on the "Show cookies" button to show this site's cookies. If an injected script can get your cookies, it can do pretty much anything with them, so watch out!</p>
+        <p style="text-align:right;"><i>- Gregory Gan, 2017-12-19 10:34:15.0</i></p>
+
+        <p>I can also screw up the formatting of other elements by not closing my tags: let's make everything else bold.<b></p>
+        <p style="text-align:right;"><i>- Gregory Gan, 2017-12-19 10:45:29.0</i></p>
+
+        <p>You could say " '); DELETE FROM Vulnerable; -- " to clear this page.</p>
+        <p style="text-align:right;"><i>- Gregory Gan, 2017-12-19 10:50:04.0</i></p>
+
+        <p>What you can do to this page isn't limited to these simple examples of SQL injection, scripting attacks, and defacing. This page is about as vulnerable as I could make it; try some other attacks!</p>
+        <p style="text-align:right;"><i>- Gregory Gan, 2017-12-19 10:50:10.0</i></p>
+
+        <footer style="text-align:center;">
+            <p><hr/>&copy; 2017 Gregory Gan | <a href="privacy.jsp">Privacy policy</a></p>
+        </footer>
+    </body>
+</html>
