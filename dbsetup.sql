@@ -1,11 +1,16 @@
 -- Set up the database with this, and refer to it to hack the site.
--- I'll change the password, mind you.
+-- I'll change the passwords, mind you.
 
 CREATE DATABASE IF NOT EXISTS blogsec;
 USE blogsec;
 
 CREATE USER IF NOT EXISTS 'sec'@'localhost' IDENTIFIED BY 'password';
 GRANT INSERT, DELETE, SELECT, UPDATE ON blogsec.* to 'sec'@'localhost';
+
+CREATE USER IF NOT EXISTS 'hax'@'localhost' IDENTIFIED BY 'password';
+GRANT SELECT ON blogsec.Users to 'hax'@'localhost';
+GRANT INSERT, DELETE, SELECT, UPDATE ON blogsec.Vulnerable to 'hax'@'localhost';
+
 FLUSH PRIVILEGES;
 
 CREATE TABLE IF NOT EXISTS Users (

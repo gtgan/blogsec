@@ -8,6 +8,7 @@
                 <a href="login.jsp">Log In</a>
             </c:when><c:otherwise>
                 <c:out value="${sessionScope['loginUser']}"/> |
+                <a href="hack.jsp">Hack</a> |
                 <a href="index.jsp?out=t">Log Out</a>
             </c:otherwise></c:choose>
             </span>

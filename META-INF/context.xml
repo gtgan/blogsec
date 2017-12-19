@@ -3,4 +3,7 @@
     <Resource name="jdbc/blogsec" auth="Container" type="javax.sql.DataSource" maxTotal="128"
             maxIdle="32" maxWaitMillis="10000" username="sec" password="ThisIsSuchBS"
             driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:3306/blogsec"/>
+    <Resource name="jdbc/bloghax" auth="Container" type="javax.sql.DataSource" maxTotal="64"
+            maxIdle="32" maxWaitMillis="10000" username="hax" password="password"
+            driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:3306/blogsec"/>
 </Context>
