@@ -22,12 +22,12 @@ CREATE TABLE IF NOT EXISTS Users (
     bio         text,
     privilege   enum('none', 'user', 'admin') NOT NULL DEFAULT 'none'
 );
+IF NOT EXISTS
 CREATE TABLE IF NOT EXISTS Posts (
     post_id     bigint NOT NULL AUTO_INCREMENT PRIMARY KEY,
     email       varchar(255) NOT NULL,
     content     text,
     title       varchar(255) NOT NULL,
-    created     timestamp DEFAULT CURRENT_TIMESTAMP,
     modified    timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (email) REFERENCES Users(email)
 );
@@ -36,7 +36,6 @@ CREATE TABLE IF NOT EXISTS Replies (
     email       varchar(255) NOT NULL,
     post_id     bigint NOT NULL,
     content     text,
-    created     timestamp DEFAULT CURRENT_TIMESTAMP,
     modified    timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (email) REFERENCES Users(email),
     FOREIGN KEY (post_id) REFERENCES Posts(post_id)
@@ -48,3 +47,13 @@ CREATE TABLE IF NOT EXISTS Vulnerable (
     modified    timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (email) REFERENCES Users(email)
 );
+-- Adds these after table creation for compatibility with MySQL on EC2.
+-- May induce some failures.
+ALTER TABLE Replies ADD created datetime;
+ALTER TABLE Replies MODIFY created timestamp;
+CREATE TRIGGER ins_reply BEFORE INSERT ON Replies
+    FOR EACH ROW SET NEW.created = CURRENT_TIMESTAMP;
+ALTER TABLE Posts ADD created datetime;
+ALTER TABLE Posts MODIFY created timestamp;
+CREATE TRIGGER ins_post BEFORE INSERT ON Posts
+    FOR EACH ROW SET NEW.created = CURRENT_TIMESTAMP;

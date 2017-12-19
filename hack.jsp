@@ -11,8 +11,8 @@
             </sql:update>
         </c:if>
         <form>
-            <input type="text" name="in" placeholder="Vulnerable input"/>
-            <input type="submit" value="Submit"/>
+            <textarea name="in" placeholder="Vulnerable input" style="width:100%;min-height:64px"></textarea>
+            <br/><input type="submit" value="Submit"/>
         </form>
     </c:if>
     <sql:query dataSource="jdbc/bloghax" var="result">

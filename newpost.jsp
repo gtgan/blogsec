@@ -6,8 +6,8 @@
 <c:choose>
     <c:when test="${empty param.title}">
         <form name="newPost" method="post">
-            Title<br/><input type="text" name="title" placeholder="Title of post" maxlength="255" required="t"/><br/>
-            Content<br/><textarea name="content" style="height:48px;" placeholder="Post content"></textarea><br/>
+            Title<br/><input type="text" name="title" placeholder="Title of post" maxlength="255" required="t" style="width:100%;"/><br/>
+            Content<br/><textarea name="content" style="width:100%;min-height:64px;" placeholder="Post content""></textarea><br/>
             <input type="submit" value="Post"/>
         </form>
     </c:when>
