@@ -1,10 +1,34 @@
 <%@ include file="top.jsp" %>
+<c:if test="${not empty param.del_id}">
+    <sql:query dataSource="jdbc/blogsec" var="rp">
+        SELECT COUNT(*) AS c FROM Users WHERE email = ? AND pwd_hash = SHA2(CONCAT(?, salt), 512) AND privilege != 'none';
+        <sql:param value="${sessionScope['loginUser']}"/>
+        <sql:param value="${param.confirm}"/>
+    </sql:query>
+    <c:choose>
+        <c:when test="${rp.rows[0].c eq 0}">
+<script>alert("Failed to delete post");</script>
+        </c:when>
+        <c:otherwise>
+            <sql:transaction dataSource="jdbc/blogsec">
+                <sql:update var="rd">
+                    DELETE FROM Replies where post_id = ?;
+                    <sql:param value="${param.del_id}"/>
+                </sql:update>
+                <sql:update var="rd">
+                    DELETE FROM Posts where post_id = ?;
+                    <sql:param value="${param.del_id}"/>
+                </sql:update>
+            </sql:transaction>
+        </c:otherwise>
+    </c:choose>
+</c:if>
         <title>BlogSec |
     <c:choose>
         <c:when test="${empty param.id}">
             Blog Posts
             <sql:query dataSource="jdbc/blogsec" var="result">
-                SELECT post_id, title, first_name, last_name, modified FROM Posts NATURAL JOIN Users ORDER BY created DESC;
+                SELECT post_id, title, email, first_name, last_name, modified FROM Posts NATURAL JOIN Users ORDER BY created DESC;
             </sql:query>
         </c:when>
         <c:otherwise>
@@ -22,18 +46,25 @@
 <c:choose>
     <c:when test="${empty param.id}">
         <h1>Posts</h1><hr/>
-        <c:if test="${privilege eq 'admin' || privilege eq 'user'}">
-        <a href="newpost.jsp">New post</a>
-        </c:if>
+        <c:if test="${privilege eq 'admin' || privilege eq 'user'}"><a href="newpost.jsp">New post</a></c:if>
         <table width="100%">
             <thead><tr>
+                <th style="width:72px;"></th>
                 <th>Title</th>
                 <th>By</th>
                 <th>Modified</th>
             </tr></thead>
             <tbody>
-                <c:forEach var="r" items="${result.rows}"><tr>
-                    <td><a href="blog.jsp?id=<c:out value='${r.post_id}'/>"><c:out value="${r.title}"/></a></td>
+                <c:forEach var="r" items="${result.rows}"><tr style="height:18px;">
+                    <td><c:if test="${privilege eq 'admin' || r.email eq sessionScope['loginUser']}">
+                        <button id="s${r.post_id}" onclick="document.getElementById('del${r.post_id}').style.display='block'; document.getElementById('s${r.post_id}').style.display='none';">Delete</button>
+                        <form id="del${r.post_id}" name="delete${r.post_id}" method="post" style="display:none;">
+                            <input id="confirm${r.post_id}" name="confirm" type="password" placeholder="Enter your password to confirm"/><br/>
+                            <input type="submit" value="Delete"/><input type="hidden" name="del_id" value="${r.post_id}"/>
+                            <button onclick="document.getElementById('del${r.post_id}').style.display='none'; document.getElementById('s${r.post_id}').style.display='block';">Cancel</button>
+                        </form>
+                    </c:if></td>
+                    <td><a href="blog.jsp?id=<c:out value='${r.post_id}'/>"><b><c:out value="${r.title}"/></b></a></td>
                     <td><c:out value="${r.first_name} ${r.last_name}"/></td>
                     <td><c:out value="${r.modified}"/></td>
                 </tr></c:forEach>
