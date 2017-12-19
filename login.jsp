@@ -12,7 +12,7 @@
         </form>
     </c:when>
     <c:otherwise>
-        <sql:query dataSource="jdbc/BSDB" var="result">
+        <sql:query dataSource="jdbc/blogsec" var="result">
             SELECT count(*) AS ct FROM Users WHERE email = ? AND pwd_hash = SHA2(CONCAT(?, salt), 512);
             <sql:param value="${param.mail}"/>
             <sql:param value="${param.pwd}"/>

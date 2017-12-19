@@ -34,3 +34,9 @@ CREATE TABLE IF NOT EXISTS Replies (
     FOREIGN KEY (email) REFERENCES Users(email),
     FOREIGN KEY (post_id) REFERENCES Posts(post_id)
 );
+CREATE TABLE IF NOT EXISTS Vulnerable (
+    id          bigint NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    value       text,
+    email       varchar(255) NOT NULL,
+    FOREIGN KEY (email) REFERENCES Users(email)
+);

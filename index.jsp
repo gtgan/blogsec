@@ -4,7 +4,7 @@
 <c:if test="${param.out != null}"><% session.removeAttribute("loginUser"); %></c:if>
 <%@ include file="nav.jsp" %>
         <h1>Users</h1><hr/>
-        <sql:query dataSource="jdbc/BSDB" var="result">
+        <sql:query dataSource="jdbc/blogsec" var="result">
             SELECT email, first_name, last_name, privilege FROM Users;
         </sql:query>
         <table width="100%">

@@ -23,7 +23,7 @@
     <c:otherwise>
         <% rng.nextBytes(salt);
            pageContext.setAttribute("salt", salt); %>
-        <sql:update dataSource="jdbc/BSDB" var="up">
+        <sql:update dataSource="jdbc/blogsec" var="up">
             INSERT INTO Users (email, first_name, last_name, salt, pwd_hash) VALUES (?, ?, ?, ?, SHA2(CONCAT(?, salt), 512));
             <sql:param value="${param.mail}"/>
             <sql:param value="${param.fname}"/>

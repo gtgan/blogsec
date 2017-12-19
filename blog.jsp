@@ -3,12 +3,12 @@
     <c:choose>
         <c:when test="${empty param.id}">
             Blog Posts
-            <sql:query dataSource="jdbc/BSDB" var="result">
+            <sql:query dataSource="jdbc/blogsec" var="result">
                 SELECT post_id, title, first_name, last_name, modified FROM Posts NATURAL JOIN Users;
             </sql:query>
         </c:when>
         <c:otherwise>
-            <sql:query dataSource="jdbc/BSDB" var="result">
+            <sql:query dataSource="jdbc/blogsec" var="result">
                 SELECT title, first_name, last_name, content, modified FROM Posts NATURAL JOIN Users WHERE post_id = ?;
                 <sql:param value="${param.id}"/>
             </sql:query>
@@ -44,7 +44,7 @@
             <p style="text-align:right;"><i>Modified <c:out value="${r.modified}"/></i></p>
             <hr/>
         </div>
-        <sql:query dataSource="jdbc/BSDB" var="replies">
+        <sql:query dataSource="jdbc/blogsec" var="replies">
             SELECT first_name, last_name, content, modified FROM Replies NATURAL JOIN Users WHERE post_id = ?;
             <sql:param value="${param.id}"/>
         </sql:query>
