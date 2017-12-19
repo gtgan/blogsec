@@ -3,22 +3,6 @@
     </head>
 <c:if test="${param.out != null}"><% session.removeAttribute("loginUser"); %></c:if>
 <%@ include file="nav.jsp" %>
-        <h1>Users</h1><hr/>
-        <sql:query dataSource="jdbc/blogsec" var="result">
-            SELECT email, first_name, last_name, privilege FROM Users;
-        </sql:query>
-        <table width="100%">
-            <thead><tr>
-                <th>Email</th>
-                <th>Name</th>
-                <th>Privilege</th>
-            </tr></thead>
-            <tbody>
-                <c:forEach var="row" items="${result.rows}"><tr>
-                    <td><c:out value="${row.email}"/></td>
-                    <td><c:out value="${row.first_name} ${row.last_name}"/></td>
-                    <td><c:out value="${row.privilege}"/></td>
-                </tr></c:forEach>
-            </tbody>
-        </table>
+        <h1>Welcome to BlogSec.</h1><hr/>
+        <p>Where did the name come from?</p>
 <%@ include file="bottom.html" %>

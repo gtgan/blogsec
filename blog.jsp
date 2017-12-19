@@ -4,7 +4,7 @@
         <c:when test="${empty param.id}">
             Blog Posts
             <sql:query dataSource="jdbc/blogsec" var="result">
-                SELECT post_id, title, first_name, last_name, modified FROM Posts NATURAL JOIN Users;
+                SELECT post_id, title, first_name, last_name, modified FROM Posts NATURAL JOIN Users ORDER BY created DESC;
             </sql:query>
         </c:when>
         <c:otherwise>
@@ -70,7 +70,7 @@
             </c:if>
         </div>
         <sql:query dataSource="jdbc/blogsec" var="replies">
-            SELECT first_name, last_name, content, modified FROM Replies NATURAL JOIN Users WHERE post_id = ?;
+            SELECT first_name, last_name, content, modified FROM Replies NATURAL JOIN Users WHERE post_id = ? ORDER BY created;
             <sql:param value="${param.id}"/>
         </sql:query>
         <c:forEach var="re" items="${replies.rows}"><div>
