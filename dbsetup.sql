@@ -47,6 +47,9 @@ CREATE TABLE IF NOT EXISTS Vulnerable (
     modified    timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (email) REFERENCES Users(email)
 );
+CREATE TABLE IF NOT EXISTS AuthCodes (
+
+);
 -- Adds these after table creation for compatibility with MySQL on EC2.
 -- May induce some failures.
 ALTER TABLE Replies ADD created datetime;

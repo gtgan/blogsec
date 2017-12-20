@@ -1,7 +1,7 @@
 <%@ include file="top.jsp" %>
         <title>BlogSec</title>
     </head>
-<c:if test="${param.out != null}"><% session.removeAttribute("loginUser"); %></c:if>
+<c:if test="${not empty param.out && not empty sessionScope.loginUser}"><% session.removeAttribute("loginUser"); %></c:if>
 <%@ include file="nav.jsp" %>
         <h1>Welcome to BlogSec.</h1><hr/>
         <div style="width:110px">
