@@ -1,7 +1,8 @@
-<%@ page import="java.security.*" %>
+<%@ page import="java.security.*,javax.mail.*,javax.mail.internet.*,javax.activation.*" %>
 <%@ include file="top.jsp" %>
 <%! private static SecureRandom rng = new SecureRandom();
-    private byte[] salt = new byte[128]; %>
+    private byte[] salt = new byte[128];
+    private final byte[] CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".getBytes(); %>
         <title>BlogSec | Sign Up</title>
     </head>
 <%@ include file="nav.jsp" %>
@@ -31,7 +32,40 @@
             <sql:param value="${salt}"/>
             <sql:param value="${param.pwd}"/>
         </sql:update>
-        <c:redirect url="index.jsp"/>
+        <% rng.nextBytes(salt);
+           pageContext.setAttribute("salt", salt);
+           byte[] authcode = new byte[16];
+           for (int i = 0; i < authcode.length; i ++) authcode[i] = CHARS[rng.nextInt(62)];
+           pageContent.setAttribute("authcode", authcode); %>
+        <sql:update dataSource="jdbc/blogsec" var="ac">
+            INSERT INTO AuthCodes (email, code_salt, code_hash) VALUES (?, ?, SHA(CONCAT(?, code_salt), 512));
+            <sql:param value="${param.mail}"/>
+            <sql:param value="${salt}"/>
+            <sql:param value="${authcode}"/>
+        </sql:update>
+        <c:if test="${ac gt 0}">
+        <% Properties props = System.getProperties();
+           props.setProperty("mail.smtp.host", "localhost");
+           Session mSession = Session.getDefaultInstance(properties);
+           try {
+               MimeMessage msg = new MimeMessage(mSession);
+               msg.setFrom(new InternetAddress("noreply.blogsec@54.241.95.167"));
+               msg.setRecipient(Message.RecipientType.TO, new InternetAddress(getParameter("mail")))
+               msg.setSubject("BlogSec account verification");
+               msg.setText("Your verification code is '"+new String(authcode)+"'. If you didn't create a BlogSec account, you can ignore this message.");
+               Transport.send(msg);
+           } catch(Exception e) {
+               pageContent.setAttribute("mailerr", "t");
+           } %>
+        </c:if>
+        <c:choose>
+            <c:when test="${empty mailerr}">
+                <c:redirect url="authmail.jsp"/>
+            </c:when>
+            <c:otherwise>
+        Mailing error.
+            </c:otherwise>
+        </c:choose>
     </c:otherwise>
 </c:choose>
 <%@ include file="bottom.html" %>

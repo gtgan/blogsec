@@ -48,7 +48,10 @@ CREATE TABLE IF NOT EXISTS Vulnerable (
     FOREIGN KEY (email) REFERENCES Users(email)
 );
 CREATE TABLE IF NOT EXISTS AuthCodes (
-
+    email       varchar(255) NOT NULL PRIMARY KEY,
+    code_hash   char(128) NOT NULL,
+    code_salt   char(128) NOT NULL,
+    FOREIGN KEY (email) REFERENCES Users(email)
 );
 -- Adds these after table creation for compatibility with MySQL on EC2.
 -- May induce some failures.
