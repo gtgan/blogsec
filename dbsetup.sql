@@ -1,4 +1,5 @@
--- Set up the database with this, and refer to it to hack the site.
+-- Set up the database with this if you don't want the date from dbdump.sql, and refer to
+-- it to hack the site.
 -- I'll change the passwords, mind you.
 
 CREATE DATABASE IF NOT EXISTS blogsec;
