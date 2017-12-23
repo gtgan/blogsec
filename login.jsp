@@ -1,4 +1,5 @@
 <%@ include file="top.jsp" %>
+<c:if test="${not empty sessionScope['loginUser']}"><c:redirect url="index.jsp"/></c:if>
         <title>BlogSec | Sign Up</title>
     </head>
 <%@ include file="nav.jsp" %>

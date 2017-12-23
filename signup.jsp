@@ -1,5 +1,6 @@
 <%@ page import="java.security.*,javax.mail.*,javax.mail.internet.*,javax.activation.*" %>
 <%@ include file="top.jsp" %>
+<c:if test="${not empty sessionScope['loginUser']}"><c:redirect url="index.jsp"/></c:if>
 <%! private static SecureRandom rng = new SecureRandom();
     private byte[] salt = new byte[128];
     private final byte[] CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".getBytes(); %>
@@ -36,7 +37,8 @@
            pageContext.setAttribute("salt", salt);
            byte[] authcode = new byte[16];
            for (int i = 0; i < authcode.length; i ++) authcode[i] = CHARS[rng.nextInt(62)];
-           pageContext.setAttribute("authcode", new String(authcode)); %>
+           String code = new String(authcode);
+           pageContext.setAttribute("authcode", code); %>
         <sql:update dataSource="jdbc/blogsec" var="ac">
             REPLACE AuthCodes (email, code_salt, code_hash) VALUES (?, ?, SHA2(CONCAT(?, code_salt), 512));
             <sql:param value="${param.mail}"/>
@@ -52,7 +54,7 @@
                msg.setFrom(new InternetAddress("noreply.blogsec@54.241.95.167"));
                msg.setRecipient(Message.RecipientType.TO, new InternetAddress(request.getParameter("mail")));
                msg.setSubject("BlogSec account verification");
-               msg.setText("Your verification code is '"+new String(authcode)+"'. If you didn't create a BlogSec account, you can ignore this message.");
+               msg.setText("Your verification code is '"+code+"'. If you didn't create a BlogSec account, you can ignore this message.");
                Transport.send(msg);
            } catch(Exception e) {
                pageContext.setAttribute("mailerr", "t");
