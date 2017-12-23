@@ -32,7 +32,6 @@
         </table>
     </c:when>
     <c:otherwise>
-        <%@ include file="privilege.jsp" %>
         <c:if test="${not empty param.bio && param.mail eq sessionScope['loginUser']}">
             <sql:update dataSource="jdbc/blogsec" var="r">
                 UPDATE Users SET bio = ? WHERE email = ?;
@@ -71,7 +70,7 @@
             <script>alert("Failed to delete post");</script>
                     </c:when>
                     <c:otherwise>
-                        <sql:transaction dataSource="jdbc/blogsec" var="del">
+                        <sql:transaction dataSource="jdbc/blogsec">
                             <sql:update var="rd">
                                 DELETE FROM Replies where post_id = ?;
                                 <sql:param value="${param.del_id}"/>

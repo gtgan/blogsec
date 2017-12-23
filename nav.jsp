@@ -1,3 +1,4 @@
+<%@ include file="privilege.jsp" %>
     <body>
         <nav>
             <a href="index.jsp"><h3 style="display:inline;">BlogSec</h3></a>

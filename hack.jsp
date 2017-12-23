@@ -2,7 +2,6 @@
         <title>BlogSec | Hack This Page</title>
     </head>
 <%@ include file="nav.jsp" %>
-<%@ include file="privilege.jsp" %>
         <h1>Hack This Page</h1><hr/>
     <c:if test="${userPrivilege eq 'true'}">
         <c:if test="${not empty param.in}">

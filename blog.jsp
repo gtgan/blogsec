@@ -42,7 +42,6 @@
         </title>
     </head>
 <%@ include file="nav.jsp" %>
-<%@ include file="privilege.jsp" %>
 <c:choose>
     <c:when test="${empty param.id}">
         <h1>Posts</h1><hr/>
