@@ -46,6 +46,7 @@
             <sql:param value="${authcode}"/>
         </sql:update>
         <c:if test="${ac gt 0}">
+            <c:set scope="session" var="loginUser" value="${param.mail}"/>
         <% Properties props = System.getProperties();
            props.setProperty("mail.smtp.host", "localhost");
            Session mSession = Session.getDefaultInstance(props);
@@ -59,20 +60,19 @@
            } catch(Exception e) {
                pageContext.setAttribute("mailerr", "t");
            } %>
+           <c:choose>
+               <c:when test="${empty mailerr}">
+                   <c:redirect url="authmail.jsp"/>
+               </c:when>
+               <c:otherwise>
+                   <script>alert('Mailing error: host may be unable to send mail.');</script>
+                   <hr/>
+                   For testing purposes, your verification code is shown here if the email failed.
+                   <h2>${authcode}</h2>
+                   Copy that code and <a href="authmail.jsp">authenticate</a>.
+               </c:otherwise>
+           </c:choose>
         </c:if>
-        <c:set scope="session" var="loginUser" value="${param.mail}"/>
-        <c:choose>
-            <c:when test="${empty mailerr}">
-                <c:redirect url="authmail.jsp"/>
-            </c:when>
-            <c:otherwise>
-                <script>alert('Mailing error: host may be unable to send mail.');</script>
-                <hr/>
-                For testing purposes, your verification code is shown here if the email failed.
-                <h2>${authcode}</h2>
-                Copy that code and <a href="authmail.jsp">authenticate</a>.
-            </c:otherwise>
-        </c:choose>
     </c:otherwise>
 </c:choose>
 <%@ include file="bottom.html" %>
