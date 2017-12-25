@@ -1,7 +1,7 @@
 <%@ include file="top.jsp" %>
+<c:if test="${userPrivilege eq 'true'}"><c:redirect url="login.jsp"/></c:if>
         <title>BlogSec | New Post</title>
 <%@ include file="nav.jsp" %>
-<%@ include file="req_auth.jsp" %>
         <h1>New Post</h1><hr/>
 <c:choose>
     <c:when test="${empty param.title}">
@@ -23,7 +23,7 @@
                 SELECT LAST_INSERT_ID() as lastId;
             </sql:query>
         </sql:transaction>
-        New post: <a href="blog.jsp?id=${nextId.rows[0].lastId}"><c:out value="${param.title}"/></a>
+        <c:redirect url="blog.jsp?id=${nextId.rows[0].lastId}"/>
     </c:otherwise>
 </c:choose>
 <%@ include file="bottom.html" %>

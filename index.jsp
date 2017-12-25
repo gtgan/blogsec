@@ -4,7 +4,7 @@
 <c:if test="${not empty param.out && not empty sessionScope.loginUser}"><% session.removeAttribute("loginUser"); %></c:if>
 <%@ include file="nav.jsp" %>
         <h1>Welcome to BlogSec.</h1><hr/>
-        <div style="width:110px">
+        <div style="width:210px">
             <h2>Get started:</h2>
             <a href="blog.jsp"><button style="width:100%;"><h3>Posts</h3></button></a><br/>
             <c:choose>
@@ -13,7 +13,14 @@
             <a href="login.jsp"><button style="width:100%;"><h3>Log In</h3></button></a>
                 </c:when>
                 <c:otherwise>
+                    <c:choose>
+                        <c:when test="${userPrivilege eq 'true'}">
             <a href="hack.jsp"><button style="width:100%;"><h3>Hack!</h3></button></a>
+                        </c:when>
+                        <c:otherwise>
+            <a href="authmail.jsp"><button style="width:100%;"><h3>Verify account</h3></button></a>
+                        </c:otherwise>
+                    </c:choose>
                 </c:otherwise>
             </c:choose>
         </div>

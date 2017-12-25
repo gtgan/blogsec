@@ -1,5 +1,5 @@
 <%@ include file="top.jsp" %>
-<c:if test="${not empty param.del_id}">
+<c:if test="${userPrivilege not eq 'true' && not empty param.del_id}">
     <sql:query dataSource="jdbc/blogsec" var="rp">
         SELECT COUNT(*) AS c FROM Users WHERE email = ? AND pwd_hash = SHA2(CONCAT(?, salt), 512) AND privilege != 'none';
         <sql:param value="${sessionScope['loginUser']}"/>

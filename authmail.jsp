@@ -2,6 +2,7 @@
 <%! private static SecureRandom rng = new SecureRandom();
     private static final byte[] CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".getBytes(); %>
 <%@ include file="top.jsp" %>
+<c:if test="${privilege not eq 'none'}"><c:redirect url="index.jsp"/></c:if>
         <title>BlogSec | Sign Up</title>
     </head>
 <c:if test="${not empty param.resend}">
@@ -26,7 +27,6 @@
    </c:choose>
 </c:if>
 <%@ include file="nav.jsp" %>
-<c:if test="${userPrivilege || empty sessionScope['loginUser']}"><c:redirect url="index.jsp"/></c:if>
         <h1>Account Verification</h1><hr/>
         You should receive an email with a sixteen-character verification code. Enter it here.
         <form method="post">
