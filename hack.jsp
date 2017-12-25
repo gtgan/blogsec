@@ -4,8 +4,8 @@
 <%@ include file="nav.jsp" %>
         <h1>Hack This Page</h1><hr/>
         This is a hackable page. If you're logged in, you can type into a field with no input validation.
-    <c:if test="${userPrivilege eq 'true'}">
-        <c:if test="${not empty param.in && userPrivilege eq 'true'}">
+    <c:if test="${userPrivilege == 'true'}">
+        <c:if test="${not empty param.in && userPrivilege == 'true'}">
             <sql:update dataSource="jdbc/bloghax" var="r">
                 INSERT INTO Vulnerable (email, value) VALUES ('${sessionScope['loginUser']}', '${param.in}');
             </sql:update>

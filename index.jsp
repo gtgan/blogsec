@@ -14,7 +14,7 @@
                 </c:when>
                 <c:otherwise>
                     <c:choose>
-                        <c:when test="${userPrivilege eq 'true'}">
+                        <c:when test="${userPrivilege == 'true'}">
             <a href="hack.jsp"><button style="width:100%;"><h3>Hack!</h3></button></a>
                         </c:when>
                         <c:otherwise>

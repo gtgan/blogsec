@@ -1,5 +1,5 @@
 <%@ include file="top.jsp" %>
-<c:if test="${userPrivilege eq 'true'}"><c:redirect url="login.jsp"/></c:if>
+<c:if test="${userPrivilege == 'true'}"><c:redirect url="login.jsp"/></c:if>
         <title>BlogSec | New Post</title>
 <%@ include file="nav.jsp" %>
         <h1>New Post</h1><hr/>
